@@ -1,13 +1,17 @@
 const Course = require('../models/Course')
+const { multipleMongooseToObject } = require('../../util/mongoose');
+
 class SiteController {
     // [GET] / news
-    home(req, res) {
-
+    home(req, res, next) {
         Course.find({})
-            .then(courses => { res.json(courses) })
-            .catch(err => { res.status(400).json({ error: "ERROR..!!" }) });
-
-        // res.render('home');
+            .then((courses) => {
+                res.render('home', {
+                    // xử lý vấn đề của thư viện Handlebars
+                    courses: multipleMongooseToObject(courses),
+                });
+            })
+            .catch(next);
     }
 
     // [GET] /search
