@@ -83,11 +83,11 @@ class CourseController {
                 Course.restore({ _id: { $in: req.body.courseIds } })
                     .then(() => res.redirect('back'))
                     .catch(next);
-                break;
+                break; 
             case 'force':
-                Course.deleteOne({ _id: { $in: req.body.courseIds } })
+                Course.deleteMany({ _id: { $in: req.body.courseIds } })
                     .then(() => res.redirect('back'))
-                    .cathch(next);
+                    .catch(next);
                 break;
             default:
                 res.json({ message: 'Action is invalid!' });
